@@ -156,7 +156,7 @@
     $('#diastolicbp').html(p.diastolicbp);
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
-    $('#conditions').html(conditions.code);
+    $('#conditions').html(conditions);
   };
 
 })(window);
