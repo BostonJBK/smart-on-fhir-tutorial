@@ -11,9 +11,6 @@
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
         var pt = patient.read();
-        var conds = smart.patient.api.fetchAll({
-            type: 'Condition'
-        });
         var obv = smart.patient.api.fetchAll({
                     type: 'Observation',
                     query: {
@@ -26,11 +23,6 @@
                   });
 
         $.when(pt, obv).fail(onError);
-        $.when(pt, conds).fail(onError);
-        
-        $.when(pt, conds).done(function(patient, conds){
-          var conditionCodes = smart.byCodes(conds,'code');
-        });
 
         $.when(pt, obv).done(function(patient, obv) {
           var byCodes = smart.byCodes(obv, 'code');
@@ -62,7 +54,7 @@
           p.lname = lname;
           p.age = parseInt(calculateAge(dob));
           p.height = getQuantityValueAndUnit(height[0]);
-          p.conds = conditionCodes;
+          
 
           if (typeof systolicbp != 'undefined')  {
             p.systolicbp = systolicbp;
@@ -98,8 +90,7 @@
       systolicbp: {value: ''},
       diastolicbp: {value: ''},
       ldl: {value: ''},
-      hdl: {value: ''},
-      conds: {value: []}
+      hdl: {value: ''}
     };
   }
 
@@ -165,7 +156,6 @@
     $('#diastolicbp').html(p.diastolicbp);
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
-    $('#conditions').html(p.conds);
   };
 
 })(window);
