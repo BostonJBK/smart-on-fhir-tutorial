@@ -11,6 +11,7 @@
       if (smart.hasOwnProperty('patient')) {
         var patient = smart.patient;
         var pt = patient.read();
+        var conditions = smart.patient.api.search({type: 'Condition'});
         var obv = smart.patient.api.fetchAll({
                     type: 'Observation',
                     query: {
@@ -142,7 +143,7 @@
     }
   }
 
-  window.drawVisualization = function(p) {
+  window.drawVisualization = function(p,conditions) {
     $('#holder').show();
     $('#loading').hide();
     $('#fname').html(p.fname);
@@ -155,6 +156,7 @@
     $('#diastolicbp').html(p.diastolicbp);
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
+    $('#conditions').html(conditions.code);
   };
 
 })(window);
